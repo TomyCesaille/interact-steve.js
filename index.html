@@ -65,6 +65,12 @@
     ></script>
 
     <script src="js/three.js"></script>
-    <script src="interact-steve.js"></script>
+    <script src="build/interact-steve.js"></script>
+    <script>
+      var canvas = document.getElementById("canvas1");
+
+      var steve = new interactsteve();
+      steve.drawBox(canvas, 200, 200, 0.01);
+    </script>
   </body>
 </html>
