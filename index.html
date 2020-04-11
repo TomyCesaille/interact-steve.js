@@ -9,8 +9,8 @@
     />
     <link
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
   </head>
@@ -19,56 +19,123 @@
       <div class="py-5 text-center">
         <h2>Interact Steve</h2>
         <p class="lead">
-          Mollit laborum ipsum consectetur nisi qui officia proident.
-          Consectetur aliqua eiusmod id culpa amet cillum anim sit. Ex ad aliqua
-          adipisicing fugiat Lorem anim labore.
+          Various interactive components that we often miss (or not) in the
+          greatest frameworks. It's built on top of Three.js. Mainly a proof of
+          concept about integrating animated 3D stuff as html5 components.
         </p>
       </div>
+      <h4 class="mb-3">Multi-Toggle button</h4>
+      <p>Click to toggle state. Can have 2 to 6 states.</p>
+      <p class="lead">2-state example using bootstrap 4 default theme</p>
       <div class="row">
-        <div class="col-md">
-          <h4 class="mb-3">Bootstrap 4 buttons</h4>
-          <button type="button" class="btn btn-primary">Primary</button>
-          <button type="button" class="btn btn-secondary">Secondary</button>
+        <div class="col-md-2">
+          <canvas id="canvas1"></canvas>
+        </div>
+        <div class="col-md-10 align-self-center">
+          <p>State: <span id="state1"></span></p>
         </div>
       </div>
+      <p class="lead">6-state example using bootstrap 4 default theme</p>
       <div class="row">
-        <div class="col-md">
-          <h4 class="mb-3">Interact-Steve multi toggle button</h4>
-          <canvas id="canvas1" class="py-1 pl-1"></canvas>
+        <div class="col-md-2">
+          <canvas id="canvas2"></canvas>
+        </div>
+        <div class="col-md-10 align-self-center">
+          <p>State: <span id="state2"></span></p>
         </div>
       </div>
 
       <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">© 2017-2018 Company Name</p>
-        <ul class="list-inline">
-          <li class="list-inline-item"><a href="#">Privacy</a></li>
-          <li class="list-inline-item"><a href="#">Terms</a></li>
-          <li class="list-inline-item"><a href="#">Support</a></li>
-        </ul>
+        <p class="mb-1">
+          ©
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          <a href="https://jorislacance.fr">Joris La Cancellera</a>
+        </p>
       </footer>
     </div>
 
     <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
       crossorigin="anonymous"
     ></script>
 
     <script src="js/three.js"></script>
     <script src="build/interact-steve.js"></script>
     <script>
+      var style = getComputedStyle(document.body);
+      var theme = {};
+
+      theme.primary = style.getPropertyValue("--primary");
+      theme.secondary = style.getPropertyValue("--secondary");
+      theme.success = style.getPropertyValue("--success");
+      theme.info = style.getPropertyValue("--info");
+      theme.warning = style.getPropertyValue("--warning");
+      theme.danger = style.getPropertyValue("--danger");
+      theme.light = style.getPropertyValue("--light");
+      theme.dark = style.getPropertyValue("--dark");
+    </script>
+    <script>
       var canvas1 = document.getElementById("canvas1");
-      var steve = new interactsteve.multiToggleButton(canvas1, 200, 200, 0.01);
+      var state1 = document.getElementById("state1");
+      var clickCallback1 = function (canvas, state) {
+        console.log(`state is ${state}`, canvas);
+        state1.textContent = state;
+      };
+
+      var steve = new interactsteve.multiToggleButton({
+        canvas: canvas1,
+        xSize: 50,
+        ySize: 50,
+        states: ["Online", "Offline"],
+        colors: [theme.primary, theme.secondary],
+        clickCallback: clickCallback1,
+        defaultColor: theme.light,
+      });
+    </script>
+    <script>
+      var canvas2 = document.getElementById("canvas2");
+      var state2 = document.getElementById("state2");
+      var clickCallback2 = function (canvas, state) {
+        console.log(`state is ${state}`, canvas);
+        state2.textContent = state;
+      };
+
+      var steve = new interactsteve.multiToggleButton({
+        canvas: canvas2,
+        xSize: 50,
+        ySize: 50,
+        animationSpeed: 0.01,
+        states: [
+          "Available",
+          "Busy",
+          "Away",
+          "Be right back",
+          "Do not disturb",
+          "Offline",
+        ],
+        colors: [
+          theme.success,
+          theme.danger,
+          theme.warning,
+          theme.info,
+          theme.danger,
+          theme.dark,
+        ],
+        clickCallback: clickCallback2,
+      });
     </script>
   </body>
 </html>
