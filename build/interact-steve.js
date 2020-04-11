@@ -1,11 +1,11 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('three')) :
-    typeof define === 'function' && define.amd ? define(['three'], factory) :
-    (global = global || self, global.interactsteve = factory(global.THREE));
-}(this, (function (THREE) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('three')) :
+    typeof define === 'function' && define.amd ? define(['exports', 'three'], factory) :
+    (global = global || self, factory(global.interactsteve = {}, global.THREE));
+}(this, (function (exports, THREE) { 'use strict';
 
-    class interactsteve {
-        drawBox(canvas, xSize, ySize, animationSpeed) {
+    class multiToggleButton{
+        constructor(canvas, xSize, ySize, animationSpeed) {
             // const canvas = document.getElementById('canvas1');
             // const xSize = 200;
             // const ySize = 200;
@@ -61,6 +61,8 @@
         }
     }
 
-    return interactsteve;
+    exports.multiToggleButton = multiToggleButton;
+
+    Object.defineProperty(exports, '__esModule', { value: true });
 
 })));

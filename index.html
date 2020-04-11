@@ -33,7 +33,7 @@
       </div>
       <div class="row">
         <div class="col-md">
-          <h4 class="mb-3">Interact-Steve faced button</h4>
+          <h4 class="mb-3">Interact-Steve multi toggle button</h4>
           <canvas id="canvas1" class="py-1 pl-1"></canvas>
         </div>
       </div>
@@ -67,10 +67,8 @@
     <script src="js/three.js"></script>
     <script src="build/interact-steve.js"></script>
     <script>
-      var canvas = document.getElementById("canvas1");
-
-      var steve = new interactsteve();
-      steve.drawBox(canvas, 200, 200, 0.01);
+      var canvas1 = document.getElementById("canvas1");
+      var steve = new interactsteve.multiToggleButton(canvas1, 200, 200, 0.01);
     </script>
   </body>
 </html>
