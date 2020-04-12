@@ -10,8 +10,8 @@ It's built on top of Three.js. Mainly a proof of concept about integrating anima
 ## Install
 
 ```html
-<script src="js/three.js">
-<script src="js/interact-steve.js">
+<script src="js/three.js"></script>
+<script src="js/interact-steve.js"></script>
 ```
 
 ## Usage
