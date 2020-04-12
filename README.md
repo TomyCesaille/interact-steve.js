@@ -7,6 +7,8 @@ It's built on top of Three.js. Mainly a proof of concept about integrating anima
 
 [interact-steve.js website](https://tomycesaille.github.io/interact-steve.js/index.html)
 
+![gif](https://i.imgur.com/fdrgJyd.gif)
+
 ## Install
 
 ```html
@@ -45,4 +47,8 @@ npm run build # to build interact-steve.js
 
 ## TODO
 
-- Host the demo website.
+- [x] Host the demo website
+- [ ] Add animation types with multi-toggle-button component (not only linear)
+- [ ] Support more meshes with multi-toggle-button component (not only box)
+- [ ] More components !
+- [x] Eat more vegetables
