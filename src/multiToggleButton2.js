@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-export class multiToggleButton {
+export class multiToggleButton2 {
     constructor(settings) {
         this.canvas = settings.canvas;
         this.xSize = settings.xSize || 200;
@@ -14,7 +14,7 @@ export class multiToggleButton {
 
         this.clickCallback = settings.clickCallback;
 
-        while (this.colors.length < 6) {
+        while (this.colors.length < 4) {
             this.colors.push(this.defaultColor);
         }
 
@@ -29,15 +29,17 @@ export class multiToggleButton {
         this.renderer.setClearColor(0x000000, 0);
         this.renderer.setSize(this.xSize, this.ySize);
 
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const materials = this.colors.map(x => new THREE.MeshStandardMaterial({
-            color: x,
+        const geometry = new THREE.TetrahedronGeometry(1, 0);
+        for (var i = 0; i < geometry.faces.length; i++) {
+            geometry.faces[i].color = new THREE.Color(this.colors[i]);
+        }
+        var material = new THREE.MeshStandardMaterial({
             side: THREE.FrontSide,
             shading: THREE.FlatShading,
             vertexColors: THREE.VertexColors
-        }));
+        });
 
-        this.cube = new THREE.Mesh(geometry, materials);
+        this.cube = new THREE.Mesh(geometry, material);
         this.scene.add(this.cube);
 
         const color = 0xFFFFFF;
@@ -89,22 +91,16 @@ export class multiToggleButton {
 
     rotate() {
         if (this.stateIndex == 0) {
-            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(270), 0);
+            this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(35), THREE.Math.degToRad(45), THREE.Math.degToRad(0));
         }
         if (this.stateIndex == 1) {
-            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(90), 0);
+            this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(-125), THREE.Math.degToRad(0), THREE.Math.degToRad(-135));
         }
         if (this.stateIndex == 2) {
-            this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(90), 0, 0);
+            this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(45), THREE.Math.degToRad(-40), THREE.Math.degToRad(100));
         }
         if (this.stateIndex == 3) {
-            this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(270), 0, 0);
-        }
-        if (this.stateIndex == 4) {
-            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(0), 0);
-        }
-        if (this.stateIndex == 5) {
-            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(180), 0);
+            this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(125), THREE.Math.degToRad(15), THREE.Math.degToRad(-145));
         }
         this.t = 0;
     }

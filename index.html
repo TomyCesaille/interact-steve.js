@@ -60,6 +60,15 @@
         </div>
       </div>
     </div>
+    <p class="lead">The four fundamental states of matter</p>
+    <div class="row">
+      <div class="col-md-2">
+        <canvas id="canvas3"></canvas>
+      </div>
+      <div class="col-md-3 align-self-center">
+        <p>State: <span id="state3"></span></p>
+      </div>
+    </div>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
       <p class="mb-1">
@@ -150,6 +159,24 @@
         theme.dark,
       ],
       clickCallback: clickCallback2,
+    });
+  </script>
+  <script>
+    var canvas3 = document.getElementById("canvas3");
+    var state3 = document.getElementById("state3");
+    var clickCallback3 = function (canvas, state) {
+      console.log(`state is ${state}`, canvas);
+      state3.textContent = state;
+    };
+
+    var multiToggleButton3 = new interactsteve.multiToggleButton2({
+      canvas: canvas3,
+      xSize: 50,
+      ySize: 50,
+      states: ["Solid", "Liquid", "Gas", "Plasma"],
+      colors: [theme.success, theme.primary, theme.warning, theme.danger],
+      defaultColor: theme.light,
+      clickCallback: clickCallback3,
     });
   </script>
 </body>

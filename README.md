@@ -44,7 +44,9 @@ multiToggleButton1.click(); // To click using javascript.
 
 ```bash
 http-server . -p 8000 # to host website for browser
-npm run build # to build interact-steve.js
+
+npm run build # to build interact-steve.js oneshot
+rollup -c -w # to build interact-steve.js live
 ```
 
 ## TODO
