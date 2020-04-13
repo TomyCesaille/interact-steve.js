@@ -60,6 +60,18 @@ export class multiToggleButton {
         this.onCanvasClick();
     }
 
+    // public API to set a state using javascript.
+    setState(state) {
+        let stateIndex = this.states.findIndex(x => x == state);
+        this.stateIndex = stateIndex;
+        this.state = this.states[this.stateIndex];
+
+        this.rotate();
+
+        if (this.clickCallback)
+            this.clickCallback(this.canvas, this.state);
+    }
+
     onCanvasClick() {
         this.stateIndex = (this.stateIndex >= this.states.length - 1) ? 0 : this.stateIndex + 1;
         this.state = this.states[this.stateIndex];
