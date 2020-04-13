@@ -27,7 +27,7 @@ var clickCallback1 = function (canvas, state) {
   state1.textContent = state;
 };
 
-var steve = new interactsteve.multiToggleButton({
+var multiToggleButton1 = new interactsteve.multiToggleButton({
   canvas: canvas1,
   xSize: 50,
   ySize: 50,
@@ -36,6 +36,8 @@ var steve = new interactsteve.multiToggleButton({
   defaultColor: theme.light,
   clickCallback: clickCallback1,
 });
+
+multiToggleButton1.click(); // To click using javascript.
 ```
 
 ## Dev
@@ -49,6 +51,6 @@ npm run build # to build interact-steve.js
 
 - [x] Host the demo website
 - [ ] Add animation types with multi-toggle-button component (not only linear)
-- [ ] Support more meshes with multi-toggle-button component (not only box)
+- [ ] Support more meshes with multi-toggle-button component (not only square box)
 - [ ] More components !
 - [x] Eat more vegetables

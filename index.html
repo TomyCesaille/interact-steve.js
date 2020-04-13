@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>interact-steve.js</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -49,8 +50,13 @@
         <div class="col-md-2">
           <canvas id="canvas2"></canvas>
         </div>
-        <div class="col-md-10 align-self-center">
+        <div class="col-md-3 align-self-center">
           <p>State: <span id="state2"></span></p>
+        </div>
+        <div class="col-md-7 align-self-center">
+          <button class="btn btn-outline-primary btn-sm" onclick="multiToggleButton2.click()">
+            Click (using javascript)
+          </button>
         </div>
       </div>
 
@@ -111,7 +117,7 @@
         state1.textContent = state;
       };
 
-      var steve = new interactsteve.multiToggleButton({
+      var multiToggleButton1 = new interactsteve.multiToggleButton({
         canvas: canvas1,
         xSize: 50,
         ySize: 50,
@@ -129,7 +135,7 @@
         state2.textContent = state;
       };
 
-      var steve = new interactsteve.multiToggleButton({
+      var multiToggleButton2 = new interactsteve.multiToggleButton({
         canvas: canvas2,
         xSize: 50,
         ySize: 50,

@@ -2,97 +2,106 @@ import * as THREE from 'three';
 
 export class multiToggleButton {
     constructor(settings) {
-        const canvas = settings.canvas;
-        const xSize = settings.xSize || 200;
-        const ySize = settings.ySize || 200;
+        this.canvas = settings.canvas;
+        this.xSize = settings.xSize || 200;
+        this.ySize = settings.ySize || 200;
 
-        const animationSpeed = settings.animationSpeed || 0.01;
+        this.animationSpeed = settings.animationSpeed || 0.01;
 
-        const states = settings.states || ["On", "Off"];
-        const colors = settings.colors || [];
-        const defaultColor = settings.defaultColor || '#a9a9a9';
+        this.states = settings.states || ["On", "Off"];
+        this.colors = settings.colors || [];
+        this.defaultColor = settings.defaultColor || '#a9a9a9';
 
-        const clickCallback = settings.clickCallback;
+        this.clickCallback = settings.clickCallback;
 
-        while (colors.length < 6) {
-            colors.push(defaultColor);
+        while (this.colors.length < 6) {
+            this.colors.push(this.defaultColor);
         }
 
-        let stateIndex = 0;
-        let state = states[0];
+        this.stateIndex = 0;
+        this.state = this.states[0];
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, xSize / ySize, 0.1, 1000);
-        camera.position.z = 1.5;
+        this.scene = new THREE.Scene();
+        this.camera = new THREE.PerspectiveCamera(75, this.xSize / this.ySize, 0.1, 1000);
+        this.camera.position.z = 1.5;
 
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
-        renderer.setClearColor(0x000000, 0);
-        renderer.setSize(xSize, ySize);
+        this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true });
+        this.renderer.setClearColor(0x000000, 0);
+        this.renderer.setSize(this.xSize, this.ySize);
 
         const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const materials = colors.map(x => new THREE.MeshStandardMaterial({ color: x }))
+        const materials = this.colors.map(x => new THREE.MeshStandardMaterial({ color: x }))
 
-        const cube = new THREE.Mesh(geometry, materials);
-        scene.add(cube);
+        this.cube = new THREE.Mesh(geometry, materials);
+        this.scene.add(this.cube);
 
         const color = 0xFFFFFF;
         const intensity = 1;
         const light = new THREE.DirectionalLight(color, intensity);
         light.position.set(-1, 2, 4);
-        scene.add(light);
+        this.scene.add(light);
 
-        let eulerVector = new THREE.Vector3(0, 0, 0);
-        let t = 0;
+        this.eulerVector = new THREE.Vector3(0, 0, 0);
+        this.t = 0;
 
-        var rotate = function () {
-            if (stateIndex == 0) {
-                eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(270), 0);
-            }
-            if (stateIndex == 1) {
-                eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(90), 0);
-            }
-            if (stateIndex == 2) {
-                eulerVector = new THREE.Vector3(THREE.Math.degToRad(90), 0, 0);
-            }
-            if (stateIndex == 3) {
-                eulerVector = new THREE.Vector3(THREE.Math.degToRad(270), 0, 0);
-            }
-            if (stateIndex == 4) {
-                eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(0), 0);
-            }
-            if (stateIndex == 5) {
-                eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(180), 0);
-            }
-            t = 0;
-        };
-        rotate();
+        this.rotate();
 
-        var animate = function () {
-            requestAnimationFrame(animate);
+        this.animate();
+        this.tt = this.animate();
 
-            if (t < 1) {
-                t += animationSpeed;
-            }
+        if (this.clickCallback)
+            this.clickCallback(this.canvas, this.state);
 
-            cube.rotation.x = THREE.MathUtils.lerp(cube.rotation.x, eulerVector.x, t);
-            cube.rotation.y = THREE.MathUtils.lerp(cube.rotation.y, eulerVector.y, t);
-            cube.rotation.z = THREE.MathUtils.lerp(cube.rotation.z, eulerVector.z, t);
-            renderer.render(scene, camera);
-        };
-        animate();
+        this.canvas.addEventListener('click', () => this.onCanvasClick(), false);
+    }
 
-        var onCanvasClick = function () {
-            stateIndex = (stateIndex >= states.length - 1) ? 0 : stateIndex + 1;
-            state = states[stateIndex];
+    // public API to click using javascript.
+    click() {
+        this.onCanvasClick();
+    }
 
-            rotate();
+    onCanvasClick() {
+        this.stateIndex = (this.stateIndex >= this.states.length - 1) ? 0 : this.stateIndex + 1;
+        this.state = this.states[this.stateIndex];
 
-            if (clickCallback)
-                clickCallback(canvas, state);
-        };
-        if (clickCallback)
-            clickCallback(canvas, state);
+        this.rotate();
 
-        canvas.addEventListener('click', function () { onCanvasClick(); }, false);
+        if (this.clickCallback)
+            this.clickCallback(this.canvas, this.state);
+    }
+
+    rotate() {
+        if (this.stateIndex == 0) {
+            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(270), 0);
+        }
+        if (this.stateIndex == 1) {
+            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(90), 0);
+        }
+        if (this.stateIndex == 2) {
+            this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(90), 0, 0);
+        }
+        if (this.stateIndex == 3) {
+            this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(270), 0, 0);
+        }
+        if (this.stateIndex == 4) {
+            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(0), 0);
+        }
+        if (this.stateIndex == 5) {
+            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(180), 0);
+        }
+        this.t = 0;
+    }
+
+    animate() {
+        requestAnimationFrame(() => this.animate());
+
+        if (this.t < 1) {
+            this.t += this.animationSpeed;
+        }
+
+        this.cube.rotation.x = THREE.MathUtils.lerp(this.cube.rotation.x, this.eulerVector.x, this.t);
+        this.cube.rotation.y = THREE.MathUtils.lerp(this.cube.rotation.y, this.eulerVector.y, this.t);
+        this.cube.rotation.z = THREE.MathUtils.lerp(this.cube.rotation.z, this.eulerVector.z, this.t);
+        this.renderer.render(this.scene, this.camera);
     }
 }
