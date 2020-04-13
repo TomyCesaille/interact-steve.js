@@ -117,6 +117,28 @@ export class multiToggleButton {
                 this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(125), THREE.Math.degToRad(15), THREE.Math.degToRad(-145));
             }
         }
+        else if (this.geometry.toLowerCase() == "icosahedron") {
+            if (this.stateIndex == 0) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(70), THREE.Math.degToRad(0), THREE.Math.degToRad(0));
+            }
+            if (this.stateIndex == 1) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(35), THREE.Math.degToRad(45), THREE.Math.degToRad(0));
+            }
+            if (this.stateIndex == 2) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(20), THREE.Math.degToRad(90), THREE.Math.degToRad(0));
+            }
+            if (this.stateIndex == 3) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(35), THREE.Math.degToRad(135), THREE.Math.degToRad(0));
+            }
+            if (this.stateIndex == 4) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(70), THREE.Math.degToRad(180), THREE.Math.degToRad(0));
+            }
+            if (this.stateIndex == 5) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(70), THREE.Math.degToRad(180), THREE.Math.degToRad(0));
+            }
+
+            // find a protocol with colors to validate that we don't reuse a side... could be done by not going after 360 degres right ?
+        }
     }
 
     animate() {
@@ -152,7 +174,14 @@ export class multiToggleButton {
         }
         else if (this.geometry.toLowerCase() == "tetrahedron") {
             let geometry = new THREE.TetrahedronGeometry(0.95, 0);
-            for (var i = 0; i < geometry.faces.length; i++) {
+            for (let i = 0; i < geometry.faces.length; i++) {
+                geometry.faces[i].color = new THREE.Color(this.colors[i]);
+            }
+            return new THREE.Mesh(geometry, baseMaterial);
+        }
+        else if (this.geometry.toLowerCase() == "icosahedron") {
+            let geometry = new THREE.IcosahedronGeometry(0.95, 0);
+            for (let i = 0; i < geometry.faces.length; i++) {
                 geometry.faces[i].color = new THREE.Color(this.colors[i]);
             }
             return new THREE.Mesh(geometry, baseMaterial);

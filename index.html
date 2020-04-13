@@ -75,6 +75,15 @@
         <canvas id="canvas4"></canvas>
       </div>
     </div>
+    <p class="lead">x-state Icosahedron geometry</p>
+    <div class="row">
+      <div class="col-md-2">
+        <canvas id="canvas5"></canvas>
+      </div>
+      <div class="col-md-3 align-self-center">
+        <p>State: <span id="state5"></span></p>
+      </div>
+    </div>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
       <p class="mb-1">
@@ -197,6 +206,25 @@
       geometry: "Tetrahedron",
       states: ["Solid", "Liquid", "Gas", "Plasma"],
       colors: ["#f46657", "#ff804f", "#689bcc", "#2762c6"],
+    });
+  </script>
+  <script>
+    var canvas5 = document.getElementById("canvas5");
+    var state5 = document.getElementById("state5");
+    var clickCallback5 = function (canvas, state) {
+      console.log(`state is ${state}`, canvas);
+      state5.textContent = state;
+    };
+
+    var multiToggleButton5 = new interactsteve.multiToggleButton({
+      canvas: canvas5,
+      xSize: 200,
+      ySize: 200,
+      geometry: "Icosahedron",
+      states: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
+      colors: ['#8b0000', '#a9000e', '#c8001d', '#e7002c', '#f63a52', '#fc646a', '#fe8581', '#fca4a1', '#f9c0be', '#f7dbda', '#d3e2f9', '#b1cefc', '#8fbafe', '#6fa6fc', '#4d91fa', '#2a7bf8', '#1565e9', '#0e51d0', '#073eb7', '#002b9f'],
+      defaultColor: theme.light,
+      clickCallback: clickCallback5,
     });
   </script>
 </body>
