@@ -18,6 +18,15 @@ It's built on top of Three.js. Mainly a proof of concept about integrating anima
 
 ## Usage
 
+### Multi-state button
+
+Toggle button that supports more than 2 state.
+
+Geometry available:
+
+- Box (6 faces)
+- Tetrahedron (4 faces)
+
 ```javascript
 var canvas1 = document.getElementById("canvas1");
 var state1 = document.getElementById("state1");
@@ -31,6 +40,8 @@ var multiToggleButton1 = new interactsteve.multiToggleButton({
   canvas: canvas1,
   xSize: 50,
   ySize: 50,
+  animationSpeed: 0.01,
+  geometry: "Box",
   states: ["Online", "Offline"],
   colors: ["#007bff", "#6c757d"],
   defaultColor: theme.light,
@@ -38,13 +49,16 @@ var multiToggleButton1 = new interactsteve.multiToggleButton({
 });
 
 multiToggleButton1.click(); // To click using javascript.
+multiToggleButton1.setState("Offline"); // To set state using javascript.
 ```
 
 ## Dev
 
 ```bash
 http-server . -p 8000 # to host website for browser
-npm run build # to build interact-steve.js
+
+npm run build # to build interact-steve.js oneshot
+rollup -c -w # to build interact-steve.js live
 ```
 
 ## TODO
@@ -52,5 +66,11 @@ npm run build # to build interact-steve.js
 - [x] Host the demo website
 - [ ] Add animation types with multi-toggle-button component (not only linear)
 - [ ] Support more meshes with multi-toggle-button component (not only square box)
+  - [x] Tetrahedron
+  - [ ] Cylinder
+  - [ ] Dodecahedron
+  - [ ] Icosahedron <3
+  - [ ] Octahedron
 - [ ] More components !
+- [ ] User feedback (mouse hover, mouse click animation...)
 - [x] Eat more vegetables
