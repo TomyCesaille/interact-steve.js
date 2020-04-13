@@ -8,6 +8,7 @@ export class multiToggleButton {
 
         this.animationSpeed = settings.animationSpeed || 0.01;
 
+        this.geometry = settings.geometry || "Box";
         this.states = settings.states || ["On", "Off"];
         this.colors = settings.colors || [];
         this.defaultColor = settings.defaultColor || '#a9a9a9';
@@ -29,16 +30,8 @@ export class multiToggleButton {
         this.renderer.setClearColor(0x000000, 0);
         this.renderer.setSize(this.xSize, this.ySize);
 
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const materials = this.colors.map(x => new THREE.MeshStandardMaterial({
-            color: x,
-            side: THREE.FrontSide,
-            shading: THREE.FlatShading,
-            vertexColors: THREE.VertexColors
-        }));
-
-        this.cube = new THREE.Mesh(geometry, materials);
-        this.scene.add(this.cube);
+        this.mesh = this.generateMesh();
+        this.scene.add(this.mesh);
 
         const color = 0xFFFFFF;
         const intensity = 1;
@@ -88,25 +81,42 @@ export class multiToggleButton {
     }
 
     rotate() {
-        if (this.stateIndex == 0) {
-            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(270), 0);
-        }
-        if (this.stateIndex == 1) {
-            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(90), 0);
-        }
-        if (this.stateIndex == 2) {
-            this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(90), 0, 0);
-        }
-        if (this.stateIndex == 3) {
-            this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(270), 0, 0);
-        }
-        if (this.stateIndex == 4) {
-            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(0), 0);
-        }
-        if (this.stateIndex == 5) {
-            this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(180), 0);
-        }
         this.t = 0;
+
+        if (this.geometry.toLowerCase() == "box") {
+            if (this.stateIndex == 0) {
+                this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(270), 0);
+            }
+            if (this.stateIndex == 1) {
+                this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(90), 0);
+            }
+            if (this.stateIndex == 2) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(90), 0, 0);
+            }
+            if (this.stateIndex == 3) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(270), 0, 0);
+            }
+            if (this.stateIndex == 4) {
+                this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(0), 0);
+            }
+            if (this.stateIndex == 5) {
+                this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(180), 0);
+            }
+        }
+        else if (this.geometry.toLowerCase() == "tetrahedron") {
+            if (this.stateIndex == 0) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(35), THREE.Math.degToRad(45), THREE.Math.degToRad(0));
+            }
+            if (this.stateIndex == 1) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(-125), THREE.Math.degToRad(0), THREE.Math.degToRad(-135));
+            }
+            if (this.stateIndex == 2) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(45), THREE.Math.degToRad(-40), THREE.Math.degToRad(100));
+            }
+            if (this.stateIndex == 3) {
+                this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(125), THREE.Math.degToRad(15), THREE.Math.degToRad(-145));
+            }
+        }
     }
 
     animate() {
@@ -116,9 +126,36 @@ export class multiToggleButton {
             this.t += this.animationSpeed;
         }
 
-        this.cube.rotation.x = THREE.MathUtils.lerp(this.cube.rotation.x, this.eulerVector.x, this.t);
-        this.cube.rotation.y = THREE.MathUtils.lerp(this.cube.rotation.y, this.eulerVector.y, this.t);
-        this.cube.rotation.z = THREE.MathUtils.lerp(this.cube.rotation.z, this.eulerVector.z, this.t);
+        this.mesh.rotation.x = THREE.MathUtils.lerp(this.mesh.rotation.x, this.eulerVector.x, this.t);
+        this.mesh.rotation.y = THREE.MathUtils.lerp(this.mesh.rotation.y, this.eulerVector.y, this.t);
+        this.mesh.rotation.z = THREE.MathUtils.lerp(this.mesh.rotation.z, this.eulerVector.z, this.t);
+
         this.renderer.render(this.scene, this.camera);
+    }
+
+    generateMesh() {
+        let baseMaterial = new THREE.MeshStandardMaterial({
+            side: THREE.FrontSide,
+            flatShading: THREE.FlatShading,
+            vertexColors: THREE.VertexColors
+        });
+
+        if (this.geometry.toLowerCase() == "box") {
+            let geometry = new THREE.BoxGeometry(1, 1, 1);
+            let materials = this.colors.map(x => new THREE.MeshStandardMaterial({
+                color: x,
+                side: baseMaterial.side,
+                flatShading: baseMaterial.flatShading,
+                vertexColors: baseMaterial.vertexColors
+            }));
+            return new THREE.Mesh(geometry, materials);
+        }
+        else if (this.geometry.toLowerCase() == "tetrahedron") {
+            let geometry = new THREE.TetrahedronGeometry(0.95, 0);
+            for (var i = 0; i < geometry.faces.length; i++) {
+                geometry.faces[i].color = new THREE.Color(this.colors[i]);
+            }
+            return new THREE.Mesh(geometry, baseMaterial);
+        }
     }
 }

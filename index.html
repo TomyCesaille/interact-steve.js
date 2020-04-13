@@ -60,13 +60,19 @@
         </div>
       </div>
     </div>
-    <p class="lead">The four fundamental states of matter</p>
+    <p class="lead">4-state Tetrahedron geometry</p>
     <div class="row">
       <div class="col-md-2">
         <canvas id="canvas3"></canvas>
       </div>
       <div class="col-md-3 align-self-center">
         <p>State: <span id="state3"></span></p>
+      </div>
+    </div>
+    <p class="lead">4-state Tetrahedron custom size & animation speed</p>
+    <div class="row">
+      <div class="col-md-2">
+        <canvas id="canvas4"></canvas>
       </div>
     </div>
 
@@ -169,14 +175,28 @@
       state3.textContent = state;
     };
 
-    var multiToggleButton3 = new interactsteve.multiToggleButton2({
+    var multiToggleButton3 = new interactsteve.multiToggleButton({
       canvas: canvas3,
       xSize: 50,
       ySize: 50,
+      geometry: "Tetrahedron",
       states: ["Solid", "Liquid", "Gas", "Plasma"],
-      colors: [theme.success, theme.primary, theme.warning, theme.danger],
+      colors: ["#f46657", "#ff804f", "#689bcc", "#2762c6"],
       defaultColor: theme.light,
       clickCallback: clickCallback3,
+    });
+  </script>
+  <script>
+    var canvas4 = document.getElementById("canvas4");
+
+    new interactsteve.multiToggleButton({
+      canvas: canvas4,
+      xSize: 120,
+      ySize: 120,
+      animationSpeed: 0.001,
+      geometry: "Tetrahedron",
+      states: ["Solid", "Liquid", "Gas", "Plasma"],
+      colors: ["#f46657", "#ff804f", "#689bcc", "#2762c6"],
     });
   </script>
 </body>
