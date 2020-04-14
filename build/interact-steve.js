@@ -1,3 +1,9 @@
+/*!
+ * interact-steve.js v0.1.3
+ * https://tomycesaille.github.io/interact-steve.js/index.html
+ * (c) 2020 interact-steve.js Joris La Cancellera (https://jorislacance.fr)
+ * Released under the MIT License
+ */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('three')) :
     typeof define === 'function' && define.amd ? define(['exports', 'three'], factory) :

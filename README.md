@@ -56,10 +56,10 @@ multiToggleButton1.setState("Offline"); // To set state using javascript.
 ## Dev
 
 ```bash
-http-server . -p 8000 # to host website for browser
+http-server . -p 8000 # to host the website for browsers
 
 npm run build # to build interact-steve.js oneshot
-rollup -c -w # to build interact-steve.js live
+npm run dev # to build interact-steve.js on the go
 ```
 
 ## TODO
