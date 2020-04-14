@@ -7,7 +7,7 @@ It's built on top of Three.js. Mainly a proof of concept about integrating anima
 
 [interact-steve.js website](https://tomycesaille.github.io/interact-steve.js/index.html)
 
-![gif](https://i.imgur.com/IU96kVW.gif)
+![gif](https://i.imgur.com/D9gnn7k.gif)
 
 ## Install
 
