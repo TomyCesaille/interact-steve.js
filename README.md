@@ -26,6 +26,7 @@ Geometry available:
 
 - Box (6 faces)
 - Tetrahedron (4 faces)
+- Icosahedron (20 faces)
 
 ```javascript
 var canvas1 = document.getElementById("canvas1");
@@ -69,8 +70,10 @@ rollup -c -w # to build interact-steve.js live
   - [x] Tetrahedron
   - [ ] Cylinder
   - [ ] Dodecahedron
-  - [ ] Icosahedron <3
+  - [x] Icosahedron <3
   - [ ] Octahedron
 - [ ] More components !
 - [ ] User feedback (mouse hover, mouse click animation...)
+- [ ] Other styling customization (texturing, shader...)
+- [ ] Improve support of not-squared size
 - [x] Eat more vegetables
