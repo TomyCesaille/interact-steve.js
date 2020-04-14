@@ -88,38 +88,22 @@
             this.t = 0;
 
             if (this.geometry.toLowerCase() == "box") {
-                if (this.stateIndex == 0) {
-                    this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(270), 0);
-                }
-                if (this.stateIndex == 1) {
-                    this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(90), 0);
-                }
-                if (this.stateIndex == 2) {
-                    this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(90), 0, 0);
-                }
-                if (this.stateIndex == 3) {
-                    this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(270), 0, 0);
-                }
-                if (this.stateIndex == 4) {
-                    this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(0), 0);
-                }
-                if (this.stateIndex == 5) {
-                    this.eulerVector = new THREE.Vector3(0, THREE.Math.degToRad(180), 0);
-                }
+                this.eulerVector = new THREE.Vector3(
+                    THREE.Math.degToRad(this.boxRotations[this.stateIndex][0]),
+                    THREE.Math.degToRad(this.boxRotations[this.stateIndex][1]),
+                    THREE.Math.degToRad(this.boxRotations[this.stateIndex][2]));
             }
             else if (this.geometry.toLowerCase() == "tetrahedron") {
-                if (this.stateIndex == 0) {
-                    this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(35), THREE.Math.degToRad(45), THREE.Math.degToRad(0));
-                }
-                if (this.stateIndex == 1) {
-                    this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(-125), THREE.Math.degToRad(0), THREE.Math.degToRad(-135));
-                }
-                if (this.stateIndex == 2) {
-                    this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(45), THREE.Math.degToRad(-40), THREE.Math.degToRad(100));
-                }
-                if (this.stateIndex == 3) {
-                    this.eulerVector = new THREE.Vector3(THREE.Math.degToRad(125), THREE.Math.degToRad(15), THREE.Math.degToRad(-145));
-                }
+                this.eulerVector = new THREE.Vector3(
+                    THREE.Math.degToRad(this.tetrahedronRotations[this.stateIndex][0]),
+                    THREE.Math.degToRad(this.tetrahedronRotations[this.stateIndex][1]),
+                    THREE.Math.degToRad(this.tetrahedronRotations[this.stateIndex][2]));
+            }
+            else if (this.geometry.toLowerCase() == "icosahedron") {
+                this.eulerVector = new THREE.Vector3(
+                    THREE.Math.degToRad(this.icosahedronRotations[this.stateIndex][0]),
+                    THREE.Math.degToRad(this.icosahedronRotations[this.stateIndex][1]),
+                    THREE.Math.degToRad(this.icosahedronRotations[this.stateIndex][2]));
             }
         }
 
@@ -156,11 +140,63 @@
             }
             else if (this.geometry.toLowerCase() == "tetrahedron") {
                 let geometry = new THREE.TetrahedronGeometry(0.95, 0);
-                for (var i = 0; i < geometry.faces.length; i++) {
+                for (let i = 0; i < geometry.faces.length; i++) {
                     geometry.faces[i].color = new THREE.Color(this.colors[i]);
                 }
                 return new THREE.Mesh(geometry, baseMaterial);
             }
+            else if (this.geometry.toLowerCase() == "icosahedron") {
+                let geometry = new THREE.IcosahedronGeometry(0.95, 0);
+                for (let i = 0; i < geometry.faces.length; i++) {
+                    geometry.faces[i].color = new THREE.Color(this.colors[i]);
+                }
+                return new THREE.Mesh(geometry, baseMaterial);
+            }
+        }
+
+        get boxRotations() {
+            return [
+                [0, 270, 0],
+                [0, 90, 0],
+                [90, 0, 0],
+                [270, 0, 0],
+                [0, 0, 0],
+                [0, 180, 0],
+            ];
+        }
+
+        get tetrahedronRotations() {
+            return [
+                [35, 45, 0],
+                [-125, 0, -135],
+                [45, -40, 100],
+                [125, 15, -145],
+            ];
+        }
+
+        get icosahedronRotations() {
+            return [
+                [35, 45, 0], // [0]
+                [70, 0, 0], // [1]
+                [70, 180, 0], // [2]
+                [35, 135, 0], // [3]
+                [20, 90, 0], // [4]
+                [35, 315, 0], // [5]
+                [0, 20, 0], // [6]
+                [-20, 90, 0], // [7]
+                [0, 160, 0], // [8]
+                [35, 225, 0], // [9]
+                [-35, 315, 0], // [10]
+                [-70, 0, 0], // [11]
+                [-70, 180, 0], // [12]
+                [-35, 225, 0], // [13]
+                [-20, 270, 0], // [14]
+                [0, 340, 0], // [15]
+                [-35, 45, 0], // [16]
+                [-35, 135, 0], // [17]
+                [0, 200, 0], // [18]
+                [20, 270, 0], // [19]
+            ];
         }
     }
 
