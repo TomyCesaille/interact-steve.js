@@ -1,7 +1,7 @@
 {
-  "name": "interact-steve-proj",
-  "version": "1.0.0",
-  "description": "Hello.",
+  "name": "interact-steve.js",
+  "version": "0.1.3",
+  "description": "3D WebGL stuff as html5 UI components.",
   "main": "build/interact-steve.js",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.1.1",
@@ -17,7 +17,8 @@
     "three": "^0.115.0"
   },
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
   },
   "author": "Joris La Cancellera <lacancellera.joris@gmail.com>",
   "license": "MIT"
