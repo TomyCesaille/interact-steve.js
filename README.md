@@ -66,11 +66,16 @@ npm run dev # to build interact-steve.js on the go
 
 - [x] Host the demo website
 - [ ] Add animation types with multi-toggle-button component (not only linear)
-- [ ] Support more meshes with multi-toggle-button component (not only square box)
+- [ ] `nextFace` setting for multi-toggle-button
+  - [x] default: The default order of planes in three.js meshes
+  - [ ] near: Next plane is the nearest one, to reduce rotations as much a possible
+  - [ ] random: randomly assigned for each instance
+- [ ] Support more meshes with multi-toggle-button component
+  - [x] Box
   - [x] Tetrahedron
+  - [x] Icosahedron <3
   - [ ] Cylinder
   - [ ] Dodecahedron
-  - [x] Icosahedron <3
   - [ ] Octahedron
 - [ ] More components !
 - [ ] User feedback (mouse hover, mouse click animation...)
