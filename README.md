@@ -74,7 +74,6 @@ npm run dev # to build interact-steve.js on the go
   - [x] Box
   - [x] Tetrahedron
   - [x] Icosahedron <3
-  - [ ] Cylinder
   - [ ] Dodecahedron
   - [ ] Octahedron
 - [ ] More components !

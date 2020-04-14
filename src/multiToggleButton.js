@@ -15,7 +15,20 @@ export class multiToggleButton {
 
         this.clickCallback = settings.clickCallback;
 
-        while (this.colors.length < 6) {
+        let faces = 0;
+        if (this.geometry.toLowerCase() == "box") {
+            faces = 6;
+        }
+        else if (this.geometry.toLowerCase() == "tetrahedron") {
+            faces = 4;
+        }
+        else if (this.geometry.toLowerCase() == "icosahedron") {
+            faces = 20;
+        }
+        else if (this.geometry.toLowerCase() == "dodecahedron") {
+            faces = 12;
+        }
+        while (this.colors.length < faces) {
             this.colors.push(this.defaultColor);
         }
 
@@ -101,6 +114,12 @@ export class multiToggleButton {
                 THREE.Math.degToRad(this.icosahedronRotations[this.stateIndex][1]),
                 THREE.Math.degToRad(this.icosahedronRotations[this.stateIndex][2]));
         }
+        else if (this.geometry.toLowerCase() == "dodecahedron") {
+            this.eulerVector = new THREE.Vector3(
+                THREE.Math.degToRad(this.dodecahedronRotations[this.stateIndex][0]),
+                THREE.Math.degToRad(this.dodecahedronRotations[this.stateIndex][1]),
+                THREE.Math.degToRad(this.dodecahedronRotations[this.stateIndex][2]));
+        }
     }
 
     animate() {
@@ -148,6 +167,16 @@ export class multiToggleButton {
             }
             return new THREE.Mesh(geometry, baseMaterial);
         }
+        else if (this.geometry.toLowerCase() == "dodecahedron") {
+            let geometry = new THREE.DodecahedronGeometry(0.95, 0);
+            for (let i = 0; i < geometry.faces.length; i = i + 3) {
+                let color = this.colors[Math.round((0 + 1) / 3)];
+                geometry.faces[i].color = new THREE.Color(color);
+                geometry.faces[i + 1].color = new THREE.Color(color);
+                geometry.faces[i + 2].color = new THREE.Color(color);
+            }
+            return new THREE.Mesh(geometry, baseMaterial);
+        }
     }
 
     get boxRotations() {
@@ -192,6 +221,15 @@ export class multiToggleButton {
             [-35, 135, 0], // [17]
             [0, 200, 0], // [18]
             [20, 270, 0], // [19]
+        ];
+    }
+
+    get dodecahedronRotations() {
+        return [
+            [0, 30, 0],
+            [-125, 0, -135],
+            [45, -40, 100],
+            [125, 15, -145],
         ];
     }
 }

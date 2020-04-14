@@ -78,6 +78,15 @@
         <p>State: <span id="state5"></span></p>
       </div>
     </div>
+    <p class="lead">10-state Dodecahedron geometry</p>
+    <div class="row">
+      <div class="col-md-2">
+        <canvas id="canvas6"></canvas>
+      </div>
+      <div class="col-md-3 align-self-center">
+        <p>State: <span id="state6"></span></p>
+      </div>
+    </div>
     <p class="lead">custom size & animation speed</p>
     <div class="row">
       <div class="col-md-2">
@@ -227,6 +236,26 @@
       // colors: ['#1f1f21', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6', '#d2d1d6'],
       defaultColor: theme.light,
       clickCallback: clickCallback5,
+    });
+  </script>
+  <script>
+    var canvas6 = document.getElementById("canvas6");
+    var state6 = document.getElementById("state6");
+    var clickCallback6 = function (canvas, state) {
+      console.log(`state is ${state}`, canvas);
+      state6.textContent = state;
+    };
+
+    var multiToggleButton6 = new interactsteve.multiToggleButton({
+      canvas: canvas6,
+      xSize: 200,
+      ySize: 200,
+      geometry: "Dodecahedron",
+      states: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+      //states: ["Purple", "Dark Orange", "Powder Blue", "Magenta", "Light Blue", "Navy", "Forest Green", "Blue Violet", "Floral White", "Slate Blue", "Tan", "Green"],
+      colors: ['#800080', '#FF8C00', '#B0E0E6', '#FF00FF', '#ADD8E6', '#000080', '#228B22', '#8A2BE2', '#FFFAF0', '#6A5ACD', '#D2B48C', '#008000'],
+      defaultColor: theme.light,
+      clickCallback: clickCallback6,
     });
   </script>
 </body>
