@@ -64,6 +64,8 @@ export class multiToggleButton {
             this.clickCallback(this.canvas, this.state);
 
         this.canvas.addEventListener('click', () => this.onCanvasClick(), false);
+
+        this.canvas.style.cursor = 'pointer';
     }
 
     // public API to click using javascript.

@@ -77,7 +77,9 @@ npm run dev # to build interact-steve.js on the go
   - [ ] Dodecahedron
   - [ ] Octahedron
 - [ ] More components !
-- [ ] User feedback (mouse hover, mouse click animation...)
+- [x] Mouse hover
+- [ ] Tooltip
+- [ ] OnClick animation
 - [ ] Other styling customization (texturing, shader...)
 - [ ] Improve support of not-squared size
 - [x] Eat more vegetables
