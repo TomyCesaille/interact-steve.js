@@ -4,7 +4,7 @@
   "description": "3D WebGL stuff as html5 UI components.",
   "main": "build/interact-steve.js",
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-node-resolve": "^11.1.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
